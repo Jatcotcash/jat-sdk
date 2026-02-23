@@ -1,0 +1,12 @@
+node_modules/
+dist/
+
+# Secrets: relayer/deployer wallets and keypairs never belong in git
+*wallet*.json
+*keypair*.json
+relayer*.json
+
+# env
+.env
+.env.*
+!.env.example
