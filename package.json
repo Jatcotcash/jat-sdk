@@ -1,0 +1,51 @@
+{
+  "name": "jat-sdk",
+  "version": "0.4.0",
+  "description": "Client SDK and services for Jat private payments on Solana: stealth key derivation and scanning, the pool client, and the relayer and indexer services.",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "relayer": "node sdk/relayer.mjs",
+    "indexer": "node sdk/indexer.mjs",
+    "test": "node --test sdk/stealth.test.mjs sdk/contract.test.mjs sdk/relay.test.mjs",
+    "e2e:stealth": "node sdk/e2e_stealth.mjs",
+    "e2e:pool": "node sdk/e2e_pool.mjs",
+    "e2e:withdraw": "node sdk/e2e_withdraw.mjs",
+    "build:pkg": "npm run build --workspace packages/seal-sdk"
+  },
+  "keywords": [
+    "solana",
+    "stealth-address",
+    "privacy",
+    "zk",
+    "shielded-pool",
+    "ecdh",
+    "groth16",
+    "payments",
+    "relayer"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jatcotcash/jat-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Jatcotcash/jat-sdk/issues"
+  },
+  "homepage": "https://github.com/Jatcotcash/jat-sdk",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@noble/curves": "^1.8.1",
+    "@noble/hashes": "^1.7.1",
+    "@solana/web3.js": "^1.98.4",
+    "circomlibjs": "^0.1.7",
+    "poseidon-lite": "^0.3.0",
+    "snarkjs": "^0.7.5",
+    "tweetnacl": "^1.0.3"
+  }
+}
