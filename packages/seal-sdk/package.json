@@ -1,0 +1,35 @@
+{
+  "name": "seal-sdk",
+  "version": "0.1.0",
+  "description": "Stealth payments + shielded-pool client for Solana: one-time addresses (graph privacy) and ZK pool deposit/withdraw (value privacy). Isomorphic (Node + browser).",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "keywords": ["solana", "stealth-address", "privacy", "zk", "shielded-pool", "ecdh", "groth16", "payments"],
+  "license": "MIT",
+  "peerDependencies": {
+    "@solana/web3.js": "^1.95.0"
+  },
+  "dependencies": {
+    "@noble/curves": "^1.8.1",
+    "@noble/hashes": "^1.7.1",
+    "poseidon-lite": "^0.3.0",
+    "snarkjs": "^0.7.5"
+  },
+  "devDependencies": {
+    "@solana/web3.js": "^1.98.4",
+    "typescript": "^5.7.0"
+  }
+}
