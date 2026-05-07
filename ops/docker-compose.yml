@@ -1,0 +1,32 @@
+# Host the SEAL relayer + indexer. The relayer keypair is mounted read-only as a
+# secret; it is never copied into the image or committed. Fund that keypair and
+# keep it topped up: it pays user fees (bounded per tx by MAX_RELAYER_COST_LAMPORTS).
+services:
+  relayer:
+    build: { context: .., dockerfile: ops/Dockerfile }
+    environment:
+      SERVICE: relayer
+      RPC_URL: ${RPC_URL:-https://api.devnet.solana.com}
+      RELAYER_WALLET: /run/secrets/relayer_wallet
+      MAX_RELAYER_COST_LAMPORTS: ${MAX_RELAYER_COST_LAMPORTS:-10000000}
+      RELAYER_MIN_BALANCE_LAMPORTS: ${RELAYER_MIN_BALANCE_LAMPORTS:-50000000}
+      RELAYER_RATE_PER_MIN: ${RELAYER_RATE_PER_MIN:-20}
+      RELAYER_GLOBAL_PER_MIN: ${RELAYER_GLOBAL_PER_MIN:-120}
+      PORT: 8789
+    ports: ["8789:8789"]
+    secrets: [relayer_wallet]
+    restart: unless-stopped
+
+  indexer:
+    build: { context: .., dockerfile: ops/Dockerfile }
+    environment:
+      SERVICE: indexer
+      RPC_URL: ${RPC_URL:-https://api.devnet.solana.com}
+      PORT: 8788
+    ports: ["8788:8788"]
+    restart: unless-stopped
+
+secrets:
+  relayer_wallet:
+    # path on the host to the funded relayer keypair JSON (NOT committed)
+    file: ${RELAYER_WALLET_FILE:-./relayer-wallet.json}
