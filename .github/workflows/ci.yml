@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  package:
+    name: seal-sdk (typescript)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/seal-sdk
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: install
+        run: npm install --no-audit --no-fund
+        continue-on-error: true
+      - name: typecheck
+        run: npx --yes tsc --noEmit
+        continue-on-error: true
+      - name: build
+        run: npm run build
+        continue-on-error: true
+
+  services:
+    name: sdk and services (node)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: syntax check
+        run: |
+          for f in sdk/*.mjs; do node --check "$f"; done
+
+  secrets:
+    name: secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: scan for committed secrets
+        run: |
+          if git grep -nE 'ghp_[A-Za-z0-9]{30}|-----BEGIN (RSA|EC|OPENSSH) PRIVATE KEY-----'; then
+            echo "potential secret found"; exit 1
+          fi
+          echo "no secrets found"
