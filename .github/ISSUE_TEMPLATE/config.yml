@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security disclosure
+    url: https://github.com/Jatcotcash/jat-sdk/security/policy
+    about: Report a signer, relayer, or privacy issue privately.
+  - name: On-chain programs
+    url: https://github.com/Jatcotcash/jat-program
+    about: For the verifier, the pool, or the announcer.
+  - name: Circuits
+    url: https://github.com/Jatcotcash/jat-circuits
+    about: For circuit or trusted-setup questions.
