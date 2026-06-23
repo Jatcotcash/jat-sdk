@@ -31,20 +31,33 @@ export async function fetchDeposits(conn) {
     .filter((s) => !s.err)
     .reverse(); // oldest first
   const deposits = [];
+  // getTransaction lies by omission: for a signature getSignaturesForAddress just
+  // returned as confirmed, the node still answers `null` for a few seconds while
+  // the tx propagates (seen on Helius devnet: a single pass nulled 20-60% of
+  // confirmed sigs, every one resolving once retried with backoff). A `null` is
+  // NOT "no such tx". The old code retried only on 429 and then `continue`-skipped
+  // a null, silently dropping that deposit; since the leaf index is its position,
+  // a dropped leaf shifts every later index and the rebuilt Merkle root no longer
+  // matches on-chain. So we retry on null too, and if it's still null after the
+  // budget we THROW rather than skip: a gap must abort the scan, not corrupt it.
   const getTx = async (signature) => {
     for (let attempt = 0; ; attempt++) {
+      let tx;
       try {
-        return await conn.getTransaction(signature, { maxSupportedTransactionVersion: 0, commitment: "confirmed" });
+        tx = await conn.getTransaction(signature, { maxSupportedTransactionVersion: 0, commitment: "confirmed" });
       } catch (e) {
-        if (attempt >= 5 || !/429|Too Many/i.test(String(e?.message))) throw e;
+        if (attempt >= 7 || !/429|Too Many/i.test(String(e?.message))) throw e;
         await new Promise((r) => setTimeout(r, 600 * (attempt + 1))); // backoff on public-RPC rate limit
+        continue;
       }
+      if (tx) return tx;
+      if (attempt >= 7) throw new Error(`getTransaction returned null after retries for ${signature}; aborting scan to avoid a leaf gap`);
+      await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
     }
   };
   for (const { signature } of sigs) {
-    const tx = await getTx(signature);
+    const tx = await getTx(signature); // throws on an unrecoverable null (never silently skips)
     await new Promise((r) => setTimeout(r, 120)); // gentle throttle
-    if (!tx) continue;
     const msg = tx.transaction.message;
     const keys = msg.staticAccountKeys ?? msg.accountKeys;
     const ixs = msg.compiledInstructions ?? msg.instructions;
