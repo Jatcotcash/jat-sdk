@@ -1,21 +1,27 @@
 # jat-sdk
 
 <p>
-  <a href="https://github.com/Jatcotcash/jat-sdk/blob/main/LICENSE">
+  <a href="https://github.com/JatProtocol/jat-sdk/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-4f7799?style=flat-square" alt="license"/>
   </a>
-  <a href="https://github.com/Jatcotcash/jat-sdk/actions/workflows/ci.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/Jatcotcash/jat-sdk/ci.yml?branch=main&style=flat-square&label=ci" alt="ci"/>
+  <a href="https://github.com/JatProtocol/jat-sdk/actions/workflows/ci.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/JatProtocol/jat-sdk/ci.yml?branch=main&style=flat-square&label=ci" alt="ci"/>
   </a>
   <img src="https://img.shields.io/badge/typescript-5.7-7aa874?style=flat-square" alt="typescript"/>
   <img src="https://img.shields.io/badge/runtime-node%20%2B%20browser-d8a657?style=flat-square" alt="isomorphic"/>
   <img src="https://img.shields.io/badge/solana-devnet-b8473f?style=flat-square" alt="solana devnet"/>
-  <a href="https://github.com/Jatcotcash/jat-sdk/commits/main">
-    <img src="https://img.shields.io/github/last-commit/Jatcotcash/jat-sdk?style=flat-square&color=4f7799" alt="last commit"/>
+  <a href="https://github.com/JatProtocol/jat-sdk/commits/main">
+    <img src="https://img.shields.io/github/last-commit/JatProtocol/jat-sdk?style=flat-square&color=4f7799" alt="last commit"/>
+  </a>
+  <a href="https://www.jat.cash">
+    <img src="https://img.shields.io/badge/site-jat.cash-4f7799?style=flat-square" alt="website"/>
+  </a>
+  <a href="https://x.com/Jat_cash">
+    <img src="https://img.shields.io/badge/X-@Jat__cash-4f7799?style=flat-square" alt="X"/>
   </a>
 </p>
 
-Client SDK and services for **Jat**, private payments on Solana. This is the layer apps use:
+Client SDK and services for **Jat**, a proof-of-payment access primitive on Solana. This is the layer apps use:
 key derivation, scanning, paying, claiming, and withdrawing, plus the two small services
 that back the flows. The on-chain programs are in `jat-program`; the circuits in
 `jat-circuits`.
@@ -80,7 +86,7 @@ Neither service ever holds a spend key or custodies funds.
 ## Run locally
 
 ```bash
-git clone https://github.com/Jatcotcash/jat-sdk
+git clone https://github.com/JatProtocol/jat-sdk
 cd gee
 npm install
 
@@ -123,5 +129,5 @@ MIT, see [LICENSE](LICENSE).
 
 ## Links
 
-- On-chain programs: https://github.com/Jatcotcash/jat-program
-- Circuits: https://github.com/Jatcotcash/jat-circuits
+- On-chain programs: https://github.com/JatProtocol/jat-program
+- Circuits: https://github.com/JatProtocol/jat-circuits

@@ -1,7 +1,7 @@
 {
   "name": "jat-sdk",
   "version": "0.4.0",
-  "description": "Client SDK and services for Jat private payments on Solana: stealth key derivation and scanning, the pool client, and the relayer and indexer services.",
+  "description": "Client SDK and services for Jat, a proof-of-payment access primitive on Solana: stealth key derivation and scanning, the pool client, and the relayer and indexer services.",
   "type": "module",
   "private": true,
   "workspaces": [
@@ -30,12 +30,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jatcotcash/jat-sdk.git"
+    "url": "git+https://github.com/JatProtocol/jat-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/Jatcotcash/jat-sdk/issues"
+    "url": "https://github.com/JatProtocol/jat-sdk/issues"
   },
-  "homepage": "https://github.com/Jatcotcash/jat-sdk",
+  "homepage": "https://github.com/JatProtocol/jat-sdk",
   "engines": {
     "node": ">=18.0.0"
   },
